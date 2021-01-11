@@ -56,7 +56,7 @@
       width: 67vmin;
       height: 67vmin;
       background: #fff;
-      border: 5px solid #ccc;
+      border: 5px solid #fff;
     }
 
     #buttons {
@@ -262,8 +262,8 @@
           qrEl.innerHTML = '';
           new QRCode(qrEl, {
             text: link,
-            width: qrEl.offsetWidth,
-            height: qrEl.offsetHeight
+            width: qrEl.offsetWidth - 10,
+            height: qrEl.offsetHeight - 10
           });
         });
 
