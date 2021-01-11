@@ -146,7 +146,7 @@
 
       const paramData = urlParams.get('data');
       if (paramData) {
-        const stateData = JSON.parse(LZString.decompressFromEncodedURIComponent());
+        const stateData = JSON.parse(LZString.decompressFromEncodedURIComponent(paramData));
         if (Array.isArray(stateData)) {
           wobStates.data = stateData;
           saveState();
