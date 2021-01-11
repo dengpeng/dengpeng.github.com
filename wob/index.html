@@ -255,7 +255,7 @@
 
         document.querySelector('#qr_gen').addEventListener('click', () => {
           const data = LZString.compressToEncodedURIComponent(JSON.stringify(wobStates.data));
-          const link = `${location.href}?data=${data}&rows=${rows}&cols=${cols}`;
+          const link = `${window.location.href.split('?')[0]}?data=${data}&rows=${rows}&cols=${cols}`;
           const qrEl = document.querySelector("#qr");
 
           qrCt.style.display = 'flex';
