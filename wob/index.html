@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Wall of Balls</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      padding: 0;
+      margin: 0
+    }
+
+    #wall {
+      width: calc(100%-32px);
+      margin: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 10px 10px;
+      touch-action: manipulation;
+      display: flex;
+      flex-flow: column nowrap;
+      transition: height 0.5s ease-in-out;
+    }
+
+    .row {
+      flex: 1 1 auto;
+      display: inline-flex;
+      flex-flow: row nowrap;
+    }
+
+    .ball {
+      flex: 1 1 auto;
+      margin: 0.1vw;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    #qr_ct {
+      position: absolute;
+      top: 0;
+      height: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #qr_ct #qr {
+      margin: 0 auto;
+      width: 67vmin;
+      height: 67vmin;
+      background: #fff;
+    }
+
+    #buttons {
+      margin: 0 5px;
+    }
+
+    #buttons a {
+      display: inline-block;
+      margin: 10px 5px;
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    #buttons a:hover {
+      opacity: 1;
+    }
+
+    .white,
+    #fill_white {
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 128 128" width="128" height="128"><defs><path d="M128 64C128 99.32 99.32 128 64 128C28.67 128 0 99.32 0 64C0 28.68 28.67 0 64 0C99.32 0 128 28.68 128 64Z" id="a18YA0j6S"></path><radialGradient id="gradientdJDfWGfUs" gradientUnits="userSpaceOnUse" cx="92.71" cy="32.16" dx="28.39" dy="96.99" r="91.32"><stop style="stop-color: #ff8080;stop-opacity: 1" offset="0%"></stop><stop style="stop-color: #ff0000;stop-opacity: 1" offset="100%"></stop></radialGradient><path d="M69.26 0.21L71.84 0.47L74.39 0.84L76.91 1.3L79.39 1.86L81.83 2.52L84.24 3.27L86.6 4.1L88.92 5.03L91.19 6.05L93.42 7.15L95.59 8.33L97.72 9.59L99.79 10.94L101.8 12.36L103.76 13.85L105.66 15.41L107.49 17.05L109.26 18.75L110.97 20.52L112.6 22.36L114.17 24.26L115.66 26.21L117.08 28.23L118.42 30.3L119.69 32.42L120.87 34.6L121.97 36.82L122.98 39.1L123.91 41.42L124.75 43.78L125.5 46.18L126.16 48.63L126.72 51.11L127.18 53.62L127.54 56.17L127.8 58.75L127.96 61.36L128.02 64L127.96 66.64L127.8 69.25L127.54 71.83L127.18 74.38L126.72 76.89L126.16 79.37L125.5 81.82L124.75 84.22L123.91 86.58L122.98 88.9L121.97 91.18L120.87 93.4L119.69 95.58L118.42 97.7L117.08 99.77L115.66 101.79L114.17 103.74L112.6 105.64L110.97 107.48L109.26 109.25L107.49 110.95L105.66 112.59L103.76 114.15L101.8 115.65L99.79 117.06L97.72 118.41L95.59 119.67L93.42 120.85L91.19 121.95L88.92 122.97L86.6 123.9L84.24 124.74L81.83 125.48L79.39 126.14L76.91 126.7L74.39 127.16L71.84 127.53L69.26 127.79L66.65 127.95L64.02 128L64 128L64.02 128L64.02 0L66.65 0.05L69.26 0.21Z" id="c182AWoWc6"></path><radialGradient id="gradientbdBZlCKUW" gradientUnits="userSpaceOnUse" cx="110.37" cy="32.16" dx="78.2" dy="96.99" r="72.37"><stop style="stop-color: #ff8080;stop-opacity: 1" offset="0%"></stop><stop style="stop-color: #ff0000;stop-opacity: 1" offset="100%"></stop></radialGradient><path d="M128 64C128 99.32 99.32 128 64 128C28.67 128 0 99.32 0 64C0 28.68 28.67 0 64 0C99.32 0 128 28.68 128 64Z" id="b6QRaxHlfr"></path><radialGradient id="gradienta6se2qd1lf" gradientUnits="userSpaceOnUse" cx="89.27" cy="33.31" dx="22.65" dy="108.47" r="100.44"><stop style="stop-color: #ffffff;stop-opacity: 1" offset="0%"></stop><stop style="stop-color: #e1e1e1;stop-opacity: 1" offset="100%"></stop></radialGradient><clipPath id="clipa10dhmc5g3"><use xlink:href="#b6QRaxHlfr" opacity="1"></use></clipPath></defs><g><g><use xlink:href="#a18YA0j6S" opacity="1" fill="url(#gradientdJDfWGfUs)"></use></g><g><use xlink:href="#c182AWoWc6" opacity="1" fill="url(#gradientbdBZlCKUW)"></use></g><g><use xlink:href="#b6QRaxHlfr" opacity="1" fill="url(#gradienta6se2qd1lf)"></use><g clip-path="url(#clipa10dhmc5g3)"><use xlink:href="#b6QRaxHlfr" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="2" stroke-opacity="1"></use></g></g></g></svg>');
+    }
+
+    .red,
+    #fill_red {
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 128 128" width="128" height="128"><defs><path d="M128 64C128 99.32 99.32 128 64 128C28.67 128 0 99.32 0 64C0 28.68 28.67 0 64 0C99.32 0 128 28.68 128 64Z" id="g4xQyCIduW"></path><radialGradient id="gradienthugQrI3w2" gradientUnits="userSpaceOnUse" cx="92.71" cy="32.16" dx="28.39" dy="96.99" r="91.32"><stop style="stop-color: #ff8080;stop-opacity: 1" offset="0%"></stop><stop style="stop-color: #ff0000;stop-opacity: 1" offset="100%"></stop></radialGradient><path d="M128 64C128 99.32 99.32 128 64 128C28.67 128 0 99.32 0 64C0 28.68 28.67 0 64 0C99.32 0 128 28.68 128 64Z" id="c4Gw4my6S"></path><clipPath id="clipboBADr6Jr"><use xlink:href="#c4Gw4my6S" opacity="1"></use></clipPath></defs><g><g><use xlink:href="#g4xQyCIduW" opacity="1" fill="url(#gradienthugQrI3w2)"></use></g><g><g clip-path="url(#clipboBADr6Jr)"><use xlink:href="#c4Gw4my6S" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="2" stroke-opacity="1"></use></g></g></g></svg>');
+    }
+
+    .half_red,
+    .half_white,
+    #reverse_bg {
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 128 128" width="128" height="128"><defs><path d="M128 64C128 99.32 99.32 128 64 128C28.67 128 0 99.32 0 64C0 28.68 28.67 0 64 0C99.32 0 128 28.68 128 64Z" id="b7rMiOSGL"></path><radialGradient id="gradientfBFPwLsu0" gradientUnits="userSpaceOnUse" cx="89.27" cy="33.31" dx="22.65" dy="108.47" r="100.44"><stop style="stop-color: #ffffff;stop-opacity: 1" offset="0%"></stop><stop style="stop-color: #e1e1e1;stop-opacity: 1" offset="100%"></stop></radialGradient><clipPath id="clipb2ova1s5o2"><use xlink:href="#b7rMiOSGL" opacity="1"></use></clipPath><path d="M69.26 0.21L71.84 0.47L74.39 0.84L76.91 1.3L79.39 1.86L81.83 2.52L84.24 3.27L86.6 4.1L88.92 5.03L91.19 6.05L93.42 7.15L95.59 8.33L97.72 9.59L99.79 10.94L101.8 12.36L103.76 13.85L105.66 15.41L107.49 17.05L109.26 18.75L110.97 20.52L112.6 22.36L114.17 24.26L115.66 26.21L117.08 28.23L118.42 30.3L119.69 32.42L120.87 34.6L121.97 36.82L122.98 39.1L123.91 41.42L124.75 43.78L125.5 46.18L126.16 48.63L126.72 51.11L127.18 53.62L127.54 56.17L127.8 58.75L127.96 61.36L128.02 64L127.96 66.64L127.8 69.25L127.54 71.83L127.18 74.38L126.72 76.89L126.16 79.37L125.5 81.82L124.75 84.22L123.91 86.58L122.98 88.9L121.97 91.18L120.87 93.4L119.69 95.58L118.42 97.7L117.08 99.77L115.66 101.79L114.17 103.74L112.6 105.64L110.97 107.48L109.26 109.25L107.49 110.95L105.66 112.59L103.76 114.15L101.8 115.65L99.79 117.06L97.72 118.41L95.59 119.67L93.42 120.85L91.19 121.95L88.92 122.97L86.6 123.9L84.24 124.74L81.83 125.48L79.39 126.14L76.91 126.7L74.39 127.16L71.84 127.53L69.26 127.79L66.65 127.95L64.02 128L64 128L64.02 128L64.02 0L66.65 0.05L69.26 0.21Z" id="a1llcCrzfj"></path><radialGradient id="gradienteCsv1ZEv" gradientUnits="userSpaceOnUse" cx="110.37" cy="32.16" dx="78.2" dy="96.99" r="72.37"><stop style="stop-color: #ff8080;stop-opacity: 1" offset="0%"></stop><stop style="stop-color: #ff0000;stop-opacity: 1" offset="100%"></stop></radialGradient><clipPath id="clipf29AczLOin"><use xlink:href="#a1llcCrzfj" opacity="1"></use></clipPath></defs><g><g><use xlink:href="#b7rMiOSGL" opacity="1" fill="url(#gradientfBFPwLsu0)"></use><g clip-path="url(#clipb2ova1s5o2)"><use xlink:href="#b7rMiOSGL" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="2" stroke-opacity="1"></use></g></g><g><use xlink:href="#a1llcCrzfj" opacity="1" fill="url(#gradienteCsv1ZEv)"></use><g clip-path="url(#clipf29AczLOin)"><use xlink:href="#a1llcCrzfj" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="2" stroke-opacity="1"></use></g></g></g></svg>');
+    }
+
+    .half_white {
+      transform: rotate(180deg);
+    }
+
+    #qr_gen {
+      background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="401.994px" height="401.994px" viewBox="0 0 401.994 401.994" style="enable-background:new 0 0 401.994 401.994;" xml:space="preserve"><g><g><path d="M0,401.991h182.724V219.265H0V401.991z M36.542,255.813h109.636v109.352H36.542V255.813z"/><rect x="73.089" y="292.355" width="36.544" height="36.549"/><rect x="292.352" y="365.449" width="36.553" height="36.545"/><rect x="365.442" y="365.449" width="36.552" height="36.545"/><polygon points="365.446,255.813 328.904,255.813 328.904,219.265 219.265,219.265 219.265,401.991 255.813,401.991 255.813,292.355 292.352,292.355 292.352,328.904 401.991,328.904 401.991,219.265 401.991,219.265 365.446,219.265"/><path d="M0,182.728h182.724V0H0V182.728z M36.542,36.542h109.636v109.636H36.542V36.542z"/><rect x="73.089" y="73.089" width="36.544" height="36.547"/><path d="M219.265,0v182.728h182.729V0H219.265z M365.446,146.178H255.813V36.542h109.633V146.178z"/><rect x="292.352" y="73.089" width="36.553" height="36.547"/></g></g></svg>');
+    }
+  </style>
+</head>
+
+<body>
+  <div id="qr_ct">
+    <div id="qr"></div>
+  </div>
+
+  <div id="wall"></div>
+
+  <div id="buttons">
+    <a id="fill_red"></a>
+    <a id="fill_white"></a>
+    <a id="reverse_bg"></a>
+    <a id="qr_gen"></a>
+  </div>
+
+  <script src="./lz-string.min.js"></script>
+  <script src="./qrcode.min.js"></script>
+  <script>
+    (function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const ball_classes = ['white', 'half_red', 'red', 'half_white'];
+      const cols = urlParams.get('cols') || 45;
+      const rows = urlParams.get('rows') || 12;
+
+      let wobStates = JSON.parse(window.localStorage.getItem('wobStates')) || {
+        data: [],
+        timestamp: Date.now()
+      };
+
+      if (Array.isArray(wobStates)) {
+        wobStates = {
+          data: wobStates,
+          timestamp: Data.now()
+        };
+      }
+
+      const saveState = () => {
+        window.localStorage.setItem('wobStates', JSON.stringify(wobStates));
+      };
+
+      const paramData = urlParams.get('data');
+      if (paramData) {
+        const stateData = JSON.parse(LZString.decompressFromEncodedURIComponent());
+        if (Array.isArray(stateData)) {
+          wobStates.data = stateData;
+          saveState();
+          window.location.href = window.location.href.split('?')[0];
+        }
+      }
+
+      const rotateBall = e => {
+        const idParts = e.target.id.split('_');
+        const i = parseInt(idParts[1]);
+        const j = parseInt(idParts[2]);
+        const oldState = wobStates.data[i][j] || 0;
+        const newState = e.altKey ? ((oldState + 1) % 4) : (oldState < 2 ? 2 : 0);
+        e.target.className = `ball ${ball_classes[newState]}`
+        wobStates.data[i][j] = newState;
+        wobStates.timestamp = Date.now();
+        saveState();
+      };
+
+      const FILL_MODE = { "RED": 0, "WHITE": 1, "REVERSE": 2 };
+
+      const fill = mode => {
+        const state = [];
+        for (let i = 0; i < rows; ++i) {
+          const row = [];
+          for (let j = 0; j < cols; ++j) {
+            let bg = 0;
+            switch (mode) {
+              case FILL_MODE.RED:
+                bg = 2;
+                break;
+              case FILL_MODE.WHITE:
+                bg = 0;
+                break;
+              case FILL_MODE.REVERSE:
+                bg = ((wobStates.data[i][j] + 2) % 4);
+                break;
+            }
+            row.push(bg);
+          }
+          state.push(row);
+        }
+
+        if (mode == FILL_MODE.REVERSE || window.confirm("Are you sure?")) {
+          wobStates.data = state;
+          reload();
+        }
+      }
+
+      const reload = () => {
+        const wall = document.querySelector("#wall");
+        wall.innerHTML = '';
+        for (let i = 0; i < rows; ++i) {
+          const row = document.createElement("div");
+          const rowStates = wobStates.data[i] || [];
+          row.setAttribute("class", "row");
+          for (let j = 0; j < cols; ++j) {
+            const ball = document.createElement("span");
+            const ballState = rowStates[j] || 0;
+            ball.setAttribute("id", `ball_${i}_${j}`);
+            ball.setAttribute("class", `ball ${ball_classes[ballState]}`);
+            ball.addEventListener("click", rotateBall);
+            row.appendChild(ball);
+            if (rowStates.length <= j) {
+              rowStates.push(ballState);
+            }
+          }
+          wall.appendChild(row);
+          if (wobStates.data.length <= i) {
+            wobStates.data.push(rowStates);
+          }
+        }
+        wobStates.timestamp = Date.now();
+        saveState();
+      }
+
+      const setWallHeight = () => {
+        const wall = document.querySelector('#wall');
+        wall.style.height = wall.offsetWidth / cols * rows + 'px';
+      };
+
+      window.addEventListener('load', () => {
+        setWallHeight();
+
+        window.addEventListener('resize', () => {
+          setWallHeight();
+        });
+
+        reload();
+
+        document.querySelector('#fill_red').addEventListener('click', () => {
+          fill(FILL_MODE.RED);
+        });
+        document.querySelector('#fill_white').addEventListener('click', () => {
+          fill(FILL_MODE.WHITE);
+        });
+        document.querySelector('#reverse_bg').addEventListener('click', () => {
+          fill(FILL_MODE.REVERSE);
+        });
+
+        const qrCt = document.querySelector('#qr_ct');
+        qrCt.addEventListener('click', () => {
+          qrCt.style.display = 'none';
+        });
+
+        document.querySelector('#qr_gen').addEventListener('click', () => {
+          const data = LZString.compressToEncodedURIComponent(JSON.stringify(wobStates.data));
+          const link = `${location.href}?data=${data}&rows=${rows}&cols=${cols}`;
+          const qrEl = document.querySelector("#qr");
+
+          qrCt.style.display = 'flex';
+          qrEl.innerHTML = '';
+          new QRCode(qrEl, {
+            text: link,
+            width: qrEl.offsetWidth,
+            height: qrEl.offsetHeight
+          });
+        });
+
+      });
+    }());
+
+  </script>
+</body>
+
+</html>
