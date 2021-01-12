@@ -56,7 +56,6 @@
       width: 67vmin;
       height: 67vmin;
       background: #fff;
-      border: 5px solid #fff;
     }
 
     #buttons {
@@ -108,7 +107,7 @@
 
 <body>
   <div id="qr_ct">
-    <div id="qr"></div>
+    <canvas id="qr"></canvas>
   </div>
 
   <div id="wall"></div>
@@ -259,11 +258,10 @@
           const qrEl = document.querySelector("#qr");
 
           qrCt.style.display = 'flex';
-          qrEl.innerHTML = '';
-          new QRCode(qrEl, {
-            text: link,
-            width: qrEl.offsetWidth - 10,
-            height: qrEl.offsetHeight - 10
+          qrCt.setAttribute('title', link);
+
+          QRCode.toCanvas(qrEl, link, function (error) {
+            if (error) console.error(error)
           });
         });
 
